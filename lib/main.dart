@@ -1,5 +1,6 @@
-// main.dart - Kode Lengkap Aplikasi Akademik
+// Import Bahan
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,11 +11,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Definisi Rute Aplikasi
     return MaterialApp(
       title: 'Aplikasi Akademik Mahasiswa',
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
+        
+       // Font Teks
+        textTheme: GoogleFonts.poppinsTextTheme( 
+          Theme.of(context).textTheme,
+        ),
+        
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.indigo,
+          titleTextStyle: GoogleFonts.poppins(
+            fontSize: 20, 
+            fontWeight: FontWeight.w600, 
+            color: Colors.white
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
       ),
       initialRoute: '/',
       routes: {
@@ -43,7 +59,6 @@ class _StateLogin extends State<HalamanLogin> {
   String? _pesanError;
 
   void fungsiCekLogin() {
-    // Validasi: Cek input kosong
     if (controllerEmailUser.text.isEmpty || controllerSandi.text.isEmpty) {
       setState(() {
         _pesanError = "**Email/NPM dan Password tidak boleh kosong!**";
@@ -51,7 +66,6 @@ class _StateLogin extends State<HalamanLogin> {
       return;
     }
     
-    // Navigasi ke Dashboard
     setState(() {
       _pesanError = null;
     });
@@ -61,19 +75,20 @@ class _StateLogin extends State<HalamanLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Masuk Aplikasi")),
       body: Center(
         child: SingleChildScrollView(
-          // Padding 
           padding: const EdgeInsets.fromLTRB(25.0, 40.0, 25.0, 20.0),
-          // Column
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Text (Judul & Deskripsi)
-              const Text(
-                'Selamat Datang, Mahasiswa Informatika!', 
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.indigo),
+              Text(
+                'Selamat Datang!', 
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins( 
+                  fontSize: 24, 
+                  fontWeight: FontWeight.bold, 
+                  color: Colors.indigo
+                ),
               ),
               const SizedBox(height: 10),
               const Text(
@@ -81,11 +96,11 @@ class _StateLogin extends State<HalamanLogin> {
                 style: TextStyle(fontSize: 15, color: Colors.grey),
               ),
               const SizedBox(height: 40),
-              //  Gambar (Icon Avatar)
+              
               const Icon(
-                Icons.account_box_rounded,
-                size: 110,
-                color: Colors.indigoAccent,
+                Icons.account_circle,
+                size: 100,
+                color: Colors.indigo,
               ),
               const SizedBox(height: 30),
               
@@ -98,39 +113,43 @@ class _StateLogin extends State<HalamanLogin> {
                   ),
                 ),
 
-              // TextField: Email/NPM
               TextField(
                 controller: controllerEmailUser, 
                 decoration: InputDecoration(
                   labelText: 'NPM atau Email',
-                  prefixIcon: const Icon(Icons.person), // Icon
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  prefixIcon: const Icon(Icons.person_outline),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 20),
-              // TextField: Password
+              
               TextField(
                 controller: controllerSandi, 
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Kata Sandi',
-                  prefixIcon: const Icon(Icons.lock), // Icon
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
                 ),
               ),
               const SizedBox(height: 35),
-              // Tombol Login
+              
               ElevatedButton(
-                onPressed: fungsiCekLogin, // Tombol dengan fungsi Navigator
+                onPressed: fungsiCekLogin, 
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 55),
                   backgroundColor: Colors.indigo,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: const Text(
-                  'Masuk Sekarang', 
-                  style: TextStyle(fontSize: 18, color: Colors.white)
+                  'Masuk Aplikasi', 
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)
                 ),
               ),
             ],
@@ -151,80 +170,88 @@ class HalamanUtama extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar dan Icon Notifikasi
       appBar: AppBar(
-        title: const Text('Dashboard Akademik'), 
+        title: const Text('Dashboard Akademik', style: TextStyle(fontWeight: FontWeight.bold),), 
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 15.0),
-            child: Icon(Icons.notifications_active), // Icon
+            child: Icon(Icons.notifications_none_rounded),
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, //  Column
+          crossAxisAlignment: CrossAxisAlignment.start, 
           children: <Widget>[
-            // Header User
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Halo, Wafa Rosyadi 👋'), // Text
+                  Text('Halo, Wafa Rosyadi 👋', 
+                    style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold)
+                  ),
                   const SizedBox(height: 4),
-                  const Text('Selamat datang di dashboard Anda.'), // Text
+                  const Text('Selamat datang di dashboard Anda.', style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),
 
-            // Gambar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
-                height: 150,
+                padding: const EdgeInsets.all(20),
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.blue.shade100,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Pemberitahuan Tugas Baru!', 
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 10, 52, 100),
-                    ),
+                  gradient: LinearGradient(
+                    colors: [Colors.indigo.shade400, Colors.blue.shade300],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5))
+                  ]
+                ),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Tugas Baru!", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                    SizedBox(height: 5),
+                    Text(
+                      'Pemrograman Mobile', 
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
 
             const Padding(
               padding: EdgeInsets.fromLTRB(20, 30, 20, 10),
-              child: Text('Menu Cepat', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              child: Text('Menu Cepat', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
 
-            // Menu dalam bentuk Grid (minimal 3 item)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 3, 
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
                 children: <Widget>[
-                  // Menu 1: Profil (Pakai Navigator)
                   _buatKotakMenu( 
-                    context, 'Profil', Icons.person_pin, 
-                    () { Navigator.pushNamed(context, '/profile'); } // Navigator
+                    context, 'Profil', Icons.person_outline, 
+                    () { Navigator.pushNamed(context, '/profile'); }
                   ),
-                  // Menu 2: Data
-                  _buatKotakMenu(context, 'Data Nilai', Icons.grade, () {}),
-                  // Menu 3: Pengaturan
-                  _buatKotakMenu(context, 'Pengaturan', Icons.settings, () {}),
-                  _buatKotakMenu(context, 'Jadwal Kuliah', Icons.calendar_month, () {}),
+                  _buatKotakMenu(context, 'Data Nilai', Icons.grade_outlined, () {}),
+                  _buatKotakMenu(context, 'Pengaturan', Icons.settings_outlined, () {}),
+                  _buatKotakMenu(context, 'Jadwal', Icons.calendar_today_outlined, () {}),
                 ],
               ),
             ),
@@ -234,21 +261,24 @@ class HalamanUtama extends StatelessWidget {
     );
   }
 
-  // Widget Pembantu Menu Item (Icon + Text)
   Widget _buatKotakMenu(BuildContext context, String title, IconData icon, VoidCallback onTap) {
-    return Card(
-      elevation: 4,
-      child: InkWell(
-        onTap: onTap,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(icon, size: 40, color: Colors.indigo), //  Icon
-              const SizedBox(height: 8),
-              Text(title, textAlign: TextAlign.center), // Text
-            ],
-          ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5, spreadRadius: 1)
+          ]
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(icon, size: 32, color: Colors.indigo), 
+            const SizedBox(height: 8),
+            Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)), 
+          ],
         ),
       ),
     );
@@ -265,69 +295,77 @@ class HalamanDataDiri extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Detail Informasi Profil')),
+      appBar: AppBar(
+        title: const Text('Profil Mahasiswa'),
+        backgroundColor: Colors.indigo,
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(25.0, 30.0, 25.0, 25.0),
-        // Column
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // Foto / Avatar 
-            const CircleAvatar(
-              radius: 65,
-              backgroundColor: Colors.blueGrey,
-              child: Icon(Icons.school, size: 85, color: Colors.white), // Gambar/Icon
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.indigo.shade50,
+                  child: Icon(Icons.school_rounded, size: 70, color: Colors.indigo.shade300), 
+                ),
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                  child: const CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.green,
+                    child: Icon(Icons.edit, size: 15, color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 20),
 
-            //  Text Nama
-            const Text(
+            Text(
               'Wafa Rosyadi',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+              style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
-            const SizedBox(height: 15),
+            const Text("Teknik Informatika - 2023", style: TextStyle(color: Colors.grey)),
+            const SizedBox(height: 30),
 
-            // Container Data
             Container(
-              padding: const EdgeInsets.all(25),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.indigo.shade50,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.indigo.shade100, width: 2)
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 5))
+                ],
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buatBarisInfo('NPM', '23670144'),
-                  _buatBarisInfo('Alamat Email', 'wafarosyadi24@mail.com'),
-                  const Divider(height: 30, thickness: 1.5),
-                  
-                  //  Row kecil untuk info lain
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
-                    children: [
-                      _blokInfo('Fakultas', 'Teknik & Informatika'),
-                      _blokInfo('Semester', '5 (Ganjil)'),
-                    ],
-                  ),
+                  _buatBarisInfo(Icons.badge_outlined, 'NPM', '23670144'),
+                  const Divider(),
+                  _buatBarisInfo(Icons.email_outlined, 'Email', 'wafarosyadi24@mail.com'),
+                  const Divider(),
+                  _buatBarisInfo(Icons.class_outlined, 'Semester', '5 (Ganjil)'),
                 ],
               ),
             ),
             
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
 
-            // Tombol Kembali ke Dashboard
-            ElevatedButton.icon(
-              onPressed: () { Navigator.pop(context); }, // Navigator
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 16),
-              label: const Text(
-                'Kembali ke Dashboard Utama',
-                style: TextStyle(fontSize: 17, color: Colors.white),
-              ),
+            ElevatedButton(
+              onPressed: () { Navigator.pop(context); }, 
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.indigo,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                backgroundColor: Colors.red.shade50,
+                foregroundColor: Colors.red,
+                elevation: 0,
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
               ),
+              child: const Text('Keluar Akun'),
             ),
           ],
         ),
@@ -335,30 +373,24 @@ class HalamanDataDiri extends StatelessWidget {
     );
   }
 
-  // Widget Pembantu Baris Info
-  Widget _buatBarisInfo(String label, String value) {
+  Widget _buatBarisInfo(IconData icon, String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
         children: [
-          Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
-          const SizedBox(height: 5),
-          Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          Icon(icon, color: Colors.indigo, size: 24),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              ],
+            ),
+          ),
         ],
       ),
-    );
-  }
-  
-  // Widget Pembantu Blok Info Row
-  Widget _blokInfo(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(label, style: const TextStyle(fontSize: 14, color: Colors.grey)),
-        const SizedBox(height: 5),
-        Text(value, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.indigo)),
-      ],
     );
   }
 }
